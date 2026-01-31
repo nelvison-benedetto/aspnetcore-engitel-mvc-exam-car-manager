@@ -1,0 +1,28 @@
+﻿@model EngitelExam.Web.Models.ViewModels.Step1FamigliaVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h2>Step 1 - Dati Famiglia</h2>
+
+    <div>
+        @Html.LabelFor(m => m.NomeFamiglia)
+        @Html.TextBoxFor(m => m.NomeFamiglia)
+        @Html.ValidationMessageFor(m => m.NomeFamiglia)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.NumeroComponenti)
+        @Html.TextBoxFor(m => m.NumeroComponenti)
+        @Html.ValidationMessageFor(m => m.NumeroComponenti)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.NumeroComponentiWCar)
+        @Html.TextBoxFor(m => m.NumeroComponentiWCar)
+        @Html.ValidationMessageFor(m => m.NumeroComponentiWCar)
+    </div>
+
+    <button type="submit">Avanti</button>
+}

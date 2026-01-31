@@ -1,0 +1,33 @@
+﻿@model EngitelExam.Web.Models.ViewModels.RiepilogoFamigliaVM
+
+<h2>Riepilogo</h2>
+
+<h3>Famiglia</h3>
+<ul>
+    <li><strong>Nome:</strong> @Model.Famiglia.NomeFamiglia</li>
+    <li><strong>Componenti:</strong> @Model.Famiglia.NumeroComponenti</li>
+    <li><strong>Con veicolo:</strong> @Model.Famiglia.NumeroComponentiWCar</li>
+</ul>
+
+<h3>Veicoli</h3>
+<table border="1">
+    <tr>
+        <th>Targa</th>
+        <th>Modello</th>
+    </tr>
+    @foreach (var v in Model.Veicoli)
+    {
+        <tr>
+            <td>@v.Targa</td>
+            <td>@v.Modello</td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm("Conferma", "Famiglia", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit">Conferma</button>
+}
+
+@Html.ActionLink("Annulla", "Step1")

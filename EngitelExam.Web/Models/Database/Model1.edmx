@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Database.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Famiglia">
+          <Key>
+            <PropertyRef Name="FamigliaId" />
+          </Key>
+          <Property Name="FamigliaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Componenti" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamigliaId" Type="int" Nullable="false" />
+          <Property Name="VeicoloId" Type="int" />
+        </EntityType>
+        <EntityType Name="Veicolo">
+          <Key>
+            <PropertyRef Name="VeicoloId" />
+          </Key>
+          <Property Name="VeicoloId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Targa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Modello" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Person_Famiglia">
+          <End Role="Famiglia" Type="Self.Famiglia" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Famiglia">
+              <PropertyRef Name="FamigliaId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FamigliaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Veicolo">
+          <End Role="Veicolo" Type="Self.Veicolo" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veicolo">
+              <PropertyRef Name="VeicoloId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="VeicoloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsDatabaseStoreContainer">
+          <EntitySet Name="Famiglia" EntityType="Self.Famiglia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Veicolo" EntityType="Self.Veicolo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Person_Famiglia" Association="Self.FK_Person_Famiglia">
+            <End Role="Famiglia" EntitySet="Famiglia" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Veicolo" Association="Self.FK_Person_Veicolo">
+            <End Role="Veicolo" EntitySet="Veicolo" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models.Database" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Famiglia">
+          <Key>
+            <PropertyRef Name="FamigliaId" />
+          </Key>
+          <Property Name="FamigliaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Componenti" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Famiglia" FromRole="Famiglia" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamigliaId" Type="Int32" Nullable="false" />
+          <Property Name="VeicoloId" Type="Int32" />
+          <NavigationProperty Name="Famiglia" Relationship="Self.FK_Person_Famiglia" FromRole="Person" ToRole="Famiglia" />
+          <NavigationProperty Name="Veicolo" Relationship="Self.FK_Person_Veicolo" FromRole="Person" ToRole="Veicolo" />
+        </EntityType>
+        <EntityType Name="Veicolo">
+          <Key>
+            <PropertyRef Name="VeicoloId" />
+          </Key>
+          <Property Name="VeicoloId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Targa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Modello" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Veicolo" FromRole="Veicolo" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_Person_Famiglia">
+          <End Role="Famiglia" Type="Self.Famiglia" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Famiglia">
+              <PropertyRef Name="FamigliaId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FamigliaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Veicolo">
+          <End Role="Veicolo" Type="Self.Veicolo" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veicolo">
+              <PropertyRef Name="VeicoloId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="VeicoloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EngitelDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Famiglia" EntityType="Self.Famiglia" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Veicolo" EntityType="Self.Veicolo" />
+          <AssociationSet Name="FK_Person_Famiglia" Association="Self.FK_Person_Famiglia">
+            <End Role="Famiglia" EntitySet="Famiglia" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Veicolo" Association="Self.FK_Person_Veicolo">
+            <End Role="Veicolo" EntitySet="Veicolo" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsDatabaseStoreContainer" CdmEntityContainer="EngitelDbContext">
+          <EntitySetMapping Name="Famiglia">
+            <EntityTypeMapping TypeName="Models.Database.Famiglia">
+              <MappingFragment StoreEntitySet="Famiglia">
+                <ScalarProperty Name="FamigliaId" ColumnName="FamigliaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Componenti" ColumnName="Componenti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="Models.Database.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="FamigliaId" ColumnName="FamigliaId" />
+                <ScalarProperty Name="VeicoloId" ColumnName="VeicoloId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veicolo">
+            <EntityTypeMapping TypeName="Models.Database.Veicolo">
+              <MappingFragment StoreEntitySet="Veicolo">
+                <ScalarProperty Name="VeicoloId" ColumnName="VeicoloId" />
+                <ScalarProperty Name="Targa" ColumnName="Targa" />
+                <ScalarProperty Name="Modello" ColumnName="Modello" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

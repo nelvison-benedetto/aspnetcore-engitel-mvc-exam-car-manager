@@ -1,0 +1,34 @@
+﻿@model EngitelExam.Web.Models.ViewModels.Step2VeicoliVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h2>Step 2 - Veicoli</h2>
+
+    for (int i = 0; i < Model.Veicoli.Count(); i++)
+    {
+        <fieldset>
+            <legend>Veicolo @(i + 1)</legend>
+
+            <div>
+                @Html.LabelFor(m => m.Veicoli[i].Targa)
+                @Html.TextBoxFor(m => m.Veicoli[i].Targa)
+                @Html.ValidationMessageFor(m => m.Veicoli[i].Targa)
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.Veicoli[i].Modello)
+                @Html.DropDownListFor( m => m.Veicoli[i].Modello,
+                    new SelectList(new[] {
+                        "FIAT Panda",
+                        "FORD Focus",
+                        "JEEP Renegade"
+                    })
+                )
+            </div>
+        </fieldset>
+    }
+
+    <button type="submit">Riepilogo</button>
+}
