@@ -10,7 +10,7 @@
             <h2 class="mb-1">Step 1 - Dati Famiglia</h2>
             <p class="mb-3">Inserisci i dati riguardo la tua famiglia e le macchine possedute.</p>
             @Html.ValidationSummary(
-                true,   // true = mostra SOLO errori model-level
+                true,   // true = mostra SOLO errori model-level (here arrivano solo errori NON associati a proprietà) e.g.quelli che aggiungi w ModelState.AddModelError()
                 "",
                 new { @class = "text-danger mb-3" }
             )

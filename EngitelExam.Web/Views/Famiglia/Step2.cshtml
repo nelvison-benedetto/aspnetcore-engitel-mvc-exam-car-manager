@@ -10,7 +10,7 @@
             <h2 class="mb-1">Step 2 - Veicoli</h2>
             <p class="" style="">Setta i dati riguardo alle macchine possedute.</p>
             @Html.ValidationSummary(
-                true,   // true = mostra SOLO errori model-level
+                true,   // true = mostra SOLO errori model-level (here arrivano solo errori NON associati a proprietà) e.g.quelli che aggiungi w ModelState.AddModelError()
                 "",
                 new { @class = "text-danger mb-3" }
             )
