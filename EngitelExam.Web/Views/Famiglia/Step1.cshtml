@@ -1,28 +1,39 @@
 ﻿@model EngitelExam.Web.Models.ViewModels.Step1FamigliaVM
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <h2>Step 1 - Dati Famiglia</h2>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
     <div>
-        @Html.LabelFor(m => m.NomeFamiglia)
-        @Html.TextBoxFor(m => m.NomeFamiglia)
-        @Html.ValidationMessageFor(m => m.NomeFamiglia)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <h2 class="mb-1">Step 1 - Dati Famiglia</h2>
+            <p class="mb-3">Inserisci i dati riguardo la tua famiglia e le macchine possedute.</p>
+
+            <div class="mb-3">
+                <div class="mb-2">
+                    @Html.LabelFor(m => m.NomeFamiglia, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.NomeFamiglia, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NomeFamiglia, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-2">
+                    @Html.LabelFor(m => m.NumeroComponenti, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.NumeroComponenti, new { @class = "form-control", type = "number", min = "1", max = "10" })
+                    @Html.ValidationMessageFor(m => m.NumeroComponenti, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="">
+                    @Html.LabelFor(m => m.NumeroComponentiWCar, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.NumeroComponentiWCar, new { @class = "form-control", type = "number", min = "0", max = "10" })
+                    @Html.ValidationMessageFor(m => m.NumeroComponentiWCar, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-info">Avanti</button>
+        }
     </div>
 
-    <div>
-        @Html.LabelFor(m => m.NumeroComponenti)
-        @Html.TextBoxFor(m => m.NumeroComponenti)
-        @Html.ValidationMessageFor(m => m.NumeroComponenti)
-    </div>
+</div>
 
-    <div>
-        @Html.LabelFor(m => m.NumeroComponentiWCar)
-        @Html.TextBoxFor(m => m.NumeroComponentiWCar)
-        @Html.ValidationMessageFor(m => m.NumeroComponentiWCar)
-    </div>
 
-    <button type="submit">Avanti</button>
-}

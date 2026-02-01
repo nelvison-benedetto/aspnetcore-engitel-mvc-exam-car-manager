@@ -8,12 +8,15 @@ namespace EngitelExam.Web.Models.ViewModels
 {
     public class Step1FamigliaVM
     {
+        [Display(Name = "Nome della famiglia")]  //renderizzato da LabelFor in view razor (Step1.cshtml)
         [Required, StringLength(50)]
         public string NomeFamiglia { get; set; }
 
+        [Display(Name ="Numero componenti della famiglia")]
         [Range(1, 10)]
         public int NumeroComponenti { get; set; }
 
+        [Display(Name ="Numero componenti che possiedono una macchina")]
         [Range(0, 10)]
         public int NumeroComponentiWCar { get; set; }
 
