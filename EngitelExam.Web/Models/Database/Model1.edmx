@@ -10,9 +10,9 @@
             <PropertyRef Name="AppuntamentoId" />
           </Key>
           <Property Name="AppuntamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="DayId" Type="int" Nullable="false" />
           <Property Name="FamigliaId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Day">
           <Key>
@@ -133,9 +133,9 @@
             <PropertyRef Name="AppuntamentoId" />
           </Key>
           <Property Name="AppuntamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="DayId" Type="Int32" Nullable="false" />
           <Property Name="FamigliaId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Day" Relationship="Self.FK_Appuntamento_Day" FromRole="Appuntamento" ToRole="Day" />
           <NavigationProperty Name="Famiglia" Relationship="Self.FK_Appuntamento_Famiglia" FromRole="Appuntamento" ToRole="Famiglia" />
         </EntityType>
@@ -264,9 +264,9 @@
             <EntityTypeMapping TypeName="Models.Database.Appuntamento">
               <MappingFragment StoreEntitySet="Appuntamento">
                 <ScalarProperty Name="AppuntamentoId" ColumnName="AppuntamentoId" />
-                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
                 <ScalarProperty Name="DayId" ColumnName="DayId" />
                 <ScalarProperty Name="FamigliaId" ColumnName="FamigliaId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
