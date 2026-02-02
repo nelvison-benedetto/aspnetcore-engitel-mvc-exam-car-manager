@@ -142,10 +142,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\FamigliaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database\Appuntamento.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database\Day.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database\Famiglia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -171,6 +178,8 @@
     <Compile Include="Models\Database\Veicolo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\CalendarioVM.cs" />
+    <Compile Include="Models\ViewModels\DayVM.cs" />
     <Compile Include="Models\ViewModels\FamigliaListItemVM.cs" />
     <Compile Include="Models\ViewModels\RiepilogoFamigliaVM.cs" />
     <Compile Include="Models\ViewModels\Step1FamigliaVM.cs" />
@@ -178,6 +187,7 @@
     <Compile Include="Models\ViewModels\VeicoloVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\IFamigliaService.cs" />
+    <Compile Include="Services\Implementations\CalendarioService.cs" />
     <Compile Include="Services\Implementations\FamigliaService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Calendario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

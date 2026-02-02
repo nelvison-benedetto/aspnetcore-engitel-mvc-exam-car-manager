@@ -20,14 +20,14 @@ namespace EngitelExam.Web.Controllers
             _famigliaService = famigliaService;
         }
 
-        //here uso le SESSION per pssare i dati da form a form, cosi da poter salvare relmente i dati su DB solo in confeerma utente finale. alternativa leggermente meno è
+        //here uso le SESSION per pssare i dati da form a form, cosi da poter salvare relmente i dati su DB solo in conferma finale dell'utente. alternativa leggermente meno è
         //TempData["Step1"] = model; non adatto per wizard lunghi (redirect multipli).  
         //gli enterprise usano Session + Redis Session Store, o better Draft DB a parte. 
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View();  //è VUOTO!! quindi error ui !
+            return View();
         }
 
         //here non metto async Task xk intanto non uso DB! quindi non fetcho nulla
@@ -49,7 +49,7 @@ namespace EngitelExam.Web.Controllers
             Session["Step1"] = model;  //USO DI SESSION!!X NON SALVARE SU DB
             return RedirectToAction(nameof(Step2));
         }
-
+        
         [HttpGet]
         public ActionResult Step2()
         {

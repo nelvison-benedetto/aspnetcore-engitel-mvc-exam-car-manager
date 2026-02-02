@@ -1,0 +1,48 @@
+﻿using EngitelExam.Web.Models.Database;
+using EngitelExam.Web.Services.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EngitelExam.Web.Controllers
+{
+    public class CalendarioController : Controller
+    {
+        private readonly ICalendarioService _calendarioService;
+        public CalendarioController(ICalendarioService calendarioService)
+        {
+            this._calendarioService = calendarioService;
+        }
+
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Calendario(int? year, int? month) 
+        { 
+            var today = DateTime.Today;
+            int y = year ?? today.Year;
+            int m = month ?? today.Month;
+            var calendario = await _calendarioService.GetCalendarioMeseAsync(y, m);
+            return View(calendario);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PrenotaAppuntamento(int dayId, int famigliaId)
+        {
+            using (var db = new EngitelDbContext())
+            { 
+                var day = db.Day.FindAsync(dayId);
+                if (day == null) return HttpNotFound();
+            }
+        }
+
+    }
+}

@@ -47,7 +47,6 @@ namespace EngitelExam.Web.Services.Implementations
                 };
                 db.Famiglia.Add(famiglia);  //aggiungi, cmnq non ancora salvate su db.
                 await db.SaveChangesAsync();
-
                 foreach (var v in step2.Veicoli)
                 {
                     var veicolo = new Veicolo
