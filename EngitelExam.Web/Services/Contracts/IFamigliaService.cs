@@ -10,7 +10,7 @@ namespace EngitelExam.Web.Services.Contracts
     public interface IFamigliaService
     {
         //Task<int> AddFamigliaWithPersonAsync(CreateFamigliaPersonModel model);
-        Task SaveFamigliaAsync(Step1FamigliaVM step1, Step2VeicoliVM step2);
+        Task<int> SaveFamigliaAsync(Step1FamigliaVM step1, Step2VeicoliVM step2);
         Task<IEnumerable<FamigliaListItemVM>> GetAllFamiglie();
 
     }

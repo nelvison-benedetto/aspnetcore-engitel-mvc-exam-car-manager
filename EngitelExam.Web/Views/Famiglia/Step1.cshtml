@@ -7,6 +7,7 @@
         {
             @Html.AntiForgeryToken()
 
+            @Html.HiddenFor(m => m.DayId)  //nascosto, ma viene salvato nel submit cosi viene salvato nella Session!!
             <h2 class="mb-1">Step 1 - Dati Famiglia</h2>
             <p class="mb-3">Inserisci i dati riguardo la tua famiglia e le macchine possedute.</p>
             @Html.ValidationSummary(
@@ -14,7 +15,7 @@
                 "",
                 new { @class = "text-danger mb-3" }
             )
-            
+
             <div class="mb-3">
                 <div class="mb-2">
                     @Html.LabelFor(m => m.NomeFamiglia, new { @class = "form-label" })

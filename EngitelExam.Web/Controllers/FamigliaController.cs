@@ -14,10 +14,12 @@ namespace EngitelExam.Web.Controllers
     public class FamigliaController : Controller
     {
         private readonly IFamigliaService _famigliaService;
+        private readonly ICalendarioService _calendarioService;
 
-        public FamigliaController(IFamigliaService famigliaService)
+        public FamigliaController(IFamigliaService famigliaService, ICalendarioService calendarioService)
         {
-            _famigliaService = famigliaService;
+            this._famigliaService = famigliaService;
+            this._calendarioService = calendarioService;
         }
 
         //here uso le SESSION per pssare i dati da form a form, cosi da poter salvare relmente i dati su DB solo in conferma finale dell'utente. alternativa leggermente meno è
@@ -32,9 +34,9 @@ namespace EngitelExam.Web.Controllers
 
         //here non metto async Task xk intanto non uso DB! quindi non fetcho nulla
         [HttpGet]
-        public ActionResult Step1()
+        public ActionResult Step1(int dayId)
         {
-            return View(new Step1FamigliaVM());
+            return View(new Step1FamigliaVM { DayId = dayId });
         }
         
         [HttpPost]
@@ -86,7 +88,9 @@ namespace EngitelExam.Web.Controllers
         {
             var step1 = Session["Step1"] as Step1FamigliaVM;
             var step2 = Session["Step2"] as Step2VeicoliVM;
-            await _famigliaService.SaveFamigliaAsync( step1, step2 );
+            int famigliaId = await _famigliaService.SaveFamigliaAsync( step1, step2 );
+            await _calendarioService.AddAppuntamentoAsync(step1.DayId, famigliaId);
+                //creo appuntamento legato a quel giorno!!!
             Session.Clear();  //PULISCI SESSIONE!!
             return RedirectToAction(nameof(Elenco));
         }
@@ -97,8 +101,6 @@ namespace EngitelExam.Web.Controllers
             var famiglie = await _famigliaService.GetAllFamiglie();
             return View(famiglie);
         }
-
-
 
     }
 }

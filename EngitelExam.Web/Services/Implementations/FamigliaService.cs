@@ -35,7 +35,7 @@ namespace EngitelExam.Web.Services.Implementations
         //    }
         //}
 
-        public async Task SaveFamigliaAsync( Step1FamigliaVM step1, Step2VeicoliVM step2)
+        public async Task<int> SaveFamigliaAsync( Step1FamigliaVM step1, Step2VeicoliVM step2)
         {
             using (var db = new EngitelDbContext()) {
                 db.Database.Log = msg => Console.WriteLine(msg);
@@ -63,6 +63,7 @@ namespace EngitelExam.Web.Services.Implementations
                     });
                 }
                 await db.SaveChangesAsync();
+                return famiglia.FamigliaId;
             }
         }
 

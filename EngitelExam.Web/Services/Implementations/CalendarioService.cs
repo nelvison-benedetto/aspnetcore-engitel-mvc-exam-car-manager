@@ -25,21 +25,56 @@ namespace EngitelExam.Web.Services.Implementations
                     .Where(d => d.TheDate >= firstDay && d.TheDate <= lastDay)
                     .Include(d => d.Appuntamento)
                     .ToListAsync();
+
+                var calendarioDays = new List<DayVM>();
+
+                //return new CalendarioVM
+                //{
+                //    Year = year,
+                //    Month = month,
+                //    Days = days.Select(d => new DayVM
+                //    {
+                //        DayId = d.DayId,
+                //        Date = d.TheDate,
+                //        AppuntamentiCount = d.Appuntamento.Count(a=>a.Status=="Booked"),
+                //        IsAvailable = true
+                //        //hasAppointment = d.Appuntamento.Any(),  //true se almeno 1 exists
+                //        //IsAvailable = !d.Appuntamento.Any(a => a.IsAvailable == false)  
+                //            //IsAvailable is true se  "nessun nessuno soddisfa la condizione",(leggi tutto senza '!' e poi infine considera il ! invertendo il boolean)
+                //    }).ToList()
+                //};
+
+                for (var date = firstDay; date <= lastDay; date = date.AddDays(1)) //è come un normale for fatto con i
+                {
+                    var dayInDb = days.FirstOrDefault(d => d.TheDate == date);
+                    if (dayInDb != null)  //quindi esiste perche gia stato creato quel Day
+                    {
+                        calendarioDays.Add(new DayVM
+                        {
+                            DayId = dayInDb.DayId,
+                            Date = date,
+                            AppuntamentiCount = dayInDb.Appuntamento.Count(a => a.Status == "Booked"),
+                            IsAvailable = true
+                        });
+                    }
+                    else  //crea il day xk cmnq vuoi che nel calendar sia renderizzato, ma non ha datas all'interno
+                    {
+                        calendarioDays.Add(new DayVM
+                        {
+                            DayId = 0,   //0 indica che non esiste ancora in db
+                            Date = date,
+                            AppuntamentiCount = 0,
+                            IsAvailable = true
+                        });
+                    }
+                }
                 return new CalendarioVM
                 {
                     Year = year,
                     Month = month,
-                    Days = days.Select(d => new DayVM
-                    {
-                        DayId = d.DayId,
-                        Date = d.TheDate,
-                        AppuntamentiCount = d.Appuntamento.Count(a=>a.Status=="Booked"),
-                        IsAvailable = true
-                        //hasAppointment = d.Appuntamento.Any(),  //true se almeno 1 exists
-                        //IsAvailable = !d.Appuntamento.Any(a => a.IsAvailable == false)  
-                            //IsAvailable is true se  "nessun nessuno soddisfa la condizione",(leggi tutto senza '!' e poi infine considera il ! invertendo il boolean)
-                    }).ToList()
+                    Days = calendarioDays
                 };
+
             }
         }
 
