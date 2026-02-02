@@ -43,6 +43,19 @@ namespace EngitelExam.Web.Services.Implementations
             }
         }
 
+        public async Task<IEnumerable<>> GetAppuntamentiPerGiornoAsync(dayId)
+        {
+            using (var db = new EngitelDbContext())
+            {
+                db.Database.Log = msg => Console.WriteLine(msg);
+                return await db.Day
+                    .Select(x => new
+                    {
+
+                    });
+            }
+        }
+
         public async Task<AppuntamentoVM> AddAppuntamentoAsync(int dayId, int famigliaId)
         {
             using (var db = new EngitelDbContext())

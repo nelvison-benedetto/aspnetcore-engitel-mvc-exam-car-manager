@@ -1,0 +1,22 @@
+﻿@model EngitelExam.Web.Models.ViewModels.CalendarioVM
+
+<h2>@Model.Month / @Model.Year</h2>
+
+<div class="row row-cols-7 g-2">
+    @foreach (var d in Model.Days)
+    {
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-body">
+                    <strong>@d.Date.Day</strong>
+                    <div>@d.AppuntamentiCount appuntamenti</div>
+
+                    <a class="btn btn-sm btn-outline-primary"
+                       href="@Url.Action("Giorno", new { dayId = d.DayId })">
+                        Apri
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

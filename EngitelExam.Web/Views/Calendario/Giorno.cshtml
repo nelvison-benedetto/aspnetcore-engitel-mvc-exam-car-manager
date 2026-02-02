@@ -1,0 +1,28 @@
+﻿@model IEnumerable<EngitelExam.Web.Models.ViewModels.AppuntamentoVM>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Famiglia</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.NomeFamiglia</td>
+                <td>@a.Status</td>
+                <td>
+                    @if (a.Status == "Booked")
+                    {
+                        @Html.ActionLink("Disdici", "Cancel", new { id = a.AppuntamentoId },
+                            new { @class = "btn btn-danger btn-sm" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
