@@ -53,9 +53,9 @@ namespace EngitelExam.Web.Controllers
         //}
 
         [HttpGet]
-        public ActionResult FissaAppuntamento(int dayId)
+        public ActionResult FissaAppuntamento(int dayId, DateTime date)
         {
-            return View( new FissaAppuntamentoVM { DayId = dayId } );
+            return View( new FissaAppuntamentoVM { DayId = dayId , Date = date } );
         }
 
         [HttpPost]

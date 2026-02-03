@@ -116,7 +116,7 @@ namespace EngitelExam.Web.Services.Implementations
                     await db.SaveChangesAsync();  //genera DayId
                 }
 
-                bool exists = await db.Appuntamento.AnyAsync(a => a.DayId == model.DayId && a.Status == "Booked");
+                bool exists = await db.Appuntamento.AnyAsync(a => a.DayId == day.DayId && a.Status == "Booked");
                 if (exists) throw new InvalidOperationException("Giorno già prenotato");
 
                 var famiglia = new Famiglia  //crei famiglia minima, cosi persiste su db. 
@@ -128,7 +128,7 @@ namespace EngitelExam.Web.Services.Implementations
                 await db.SaveChangesAsync(); //genera lato db FamigliaId per l'entita
                 var appuntamento = new Appuntamento  //crei appuntamento 'vuoto'
                 {
-                    DayId = model.DayId,
+                    DayId = day.DayId,
                     FamigliaId = famiglia.FamigliaId,
                     Status = AppuntamentoStatus.Booked.ToString(),
                 };

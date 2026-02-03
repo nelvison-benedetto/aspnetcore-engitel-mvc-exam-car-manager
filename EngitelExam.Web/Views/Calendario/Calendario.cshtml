@@ -59,9 +59,9 @@
                         }
                         else
                         {
-                            <a class="btn btn-sm btn-primary w-100" href="@Url.Action("FissaAppuntamento", "Calendario", new { dayId = day.DayId, date = day.Date })">
+                            <a class="btn btn-sm btn-primary w-100" href="@Url.Action("FissaAppuntamento", "Calendario", new { dayId = day.DayId, date = day.Date.ToString("yyyy-MM-dd") })">
                                 Nuovo appuntamento
-                            </a>
+                            </a> //usa formattazione ISO x no problems conversions
                         }
                     </div>
                 </div>
