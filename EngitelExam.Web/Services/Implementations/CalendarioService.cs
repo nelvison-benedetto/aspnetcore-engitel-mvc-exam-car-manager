@@ -59,7 +59,8 @@ namespace EngitelExam.Web.Services.Implementations
                         {
                             DayId = dayInDb.DayId,
                             Date = date,
-                            AppuntamentiCount = dayInDb.Appuntamento.Count(a => a.Status == "Booked"),
+                            //AppuntamentiCount = dayInDb.Appuntamento.Count(a => a.Status == "Booked"),
+                            AppuntamentiCount = dayInDb.Appuntamento.Count(), //prendi tutti w status 'Completed' 'Cancelled' 'Booked' 
                             IsAvailable = true
                         });
                     }
@@ -143,6 +144,8 @@ namespace EngitelExam.Web.Services.Implementations
                         };
                         db.Appuntamento.Add(appuntamento);
                         await db.SaveChangesAsync();
+
+                        tx.Commit();  //FAI COMMIT!!!SEMPRE DA FARE ALTRIMENTI SARA SEMPRE UN ROLLERBACK AUTO (anche se hai usato piu savechanges)!!!
                         return new AppuntamentoVM
                         {
                             AppuntamentoId = appuntamento.AppuntamentoId,
