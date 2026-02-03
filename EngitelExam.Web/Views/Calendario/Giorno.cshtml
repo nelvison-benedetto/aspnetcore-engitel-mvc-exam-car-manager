@@ -1,8 +1,9 @@
-﻿@model IEnumerable<EngitelExam.Web.Models.ViewModels.AppuntamentoVM>
+﻿@*@model IEnumerable<EngitelExam.Web.Models.ViewModels.AppuntamentoVM>*@
+@model EngitelExam.Web.Models.ViewModels.GiornoVM
 
 <div style="min-height:100vh;" class="d-flex flex-column align-items-center justify-content-center">
 
-    <h2 class="mb-4">Appuntamenti del giorno</h2>
+    <h2 class="mb-4">Appuntamenti del giorno @Model.Date.ToString("dd/MM/yyyy")</h2>
 
     <div class="table-responsive mb-4">
         <table class="table table-striped table-bordered align-middle">
@@ -15,7 +16,7 @@
             </thead>
 
             <tbody>
-                @foreach (var a in Model)
+                @foreach (var a in Model.Appuntamenti)
                 {
                     <tr>
                         <td>@a.NomeFamiglia</td>
@@ -24,18 +25,18 @@
                                 @a.Status
                             </span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center d-flex flex-row align-items-center justify-content-around gap-3">
                             @if (a.Status == "Booked")
                             {
                                 @Html.ActionLink(
-                                    "Disdici",
+                                    "Disdici Appuntamento",
                                     "Cancel",  //action del controller
                                     "Calendario",
                                     new { appuntamentoId = a.AppuntamentoId },
-                                    new { @class = "btn btn-danger btn-sm me-2" })
+                                    new { @class = "btn btn-danger btn-sm" })
 
                                 @Html.ActionLink(
-                                    "Complete",
+                                    "Completa Appuntamento",
                                     "Step1",
                                     "Famiglia",
                                     new { dayId = a.DayId, appuntamentoId = a.AppuntamentoId },

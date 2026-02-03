@@ -85,22 +85,48 @@ namespace EngitelExam.Web.Services.Implementations
             }
         }
 
-        public async Task<IEnumerable<AppuntamentoVM>> GetAppuntamentiPerGiornoAsync(int dayId)
+        //public async Task<IEnumerable<AppuntamentoVM>> GetAppuntamentiPerGiornoAsync(int dayId)
+        //{
+        //    using (var db = new EngitelDbContext())
+        //    {
+        //        db.Database.Log = msg => Console.WriteLine(msg);
+        //        var appuntamenti = await db.Appuntamento
+        //            .Where(a=> a.DayId == dayId)
+        //            .Include(a=>a.Famiglia)
+        //            .ToListAsync();
+        //        return appuntamenti.Select(a=> new AppuntamentoVM {  //copy & paste in AppuntamentoVM per ciscuno dei appuntamenti trovati prima
+        //            AppuntamentoId = a.AppuntamentoId,
+        //            DayId = a.DayId,
+        //            FamigliaId = a.FamigliaId,
+        //            Status = a.Status,
+        //            NomeFamiglia = a.Famiglia.Nome,
+        //        });
+        //    }
+        //}
+
+        public async Task<GiornoVM> GetGiornoAsync(int dayId)
         {
             using (var db = new EngitelDbContext())
             {
                 db.Database.Log = msg => Console.WriteLine(msg);
-                var appuntamenti = await db.Appuntamento
-                    .Where(a=> a.DayId == dayId)
-                    .Include(a=>a.Famiglia)
-                    .ToListAsync();
-                return appuntamenti.Select(a=> new AppuntamentoVM {  //copy & paste in AppuntamentoVM per ciscuno dei appuntamenti trovati prima
-                    AppuntamentoId = a.AppuntamentoId,
-                    DayId = a.DayId,
-                    FamigliaId = a.FamigliaId,
-                    Status = a.Status,
-                    NomeFamiglia = a.Famiglia.Nome,
-                });
+                var day = await db.Day
+                    .Include(d => d.Appuntamento.Select(a => a.Famiglia))
+                    .FirstOrDefaultAsync(d => d.DayId == dayId);
+                    //ottieni il giorno desiderato, e insieme tutti i suoi Appuntamenti, e per ciascun Appuntamento anche la sua Famiglia
+                if (day == null) return null;
+                return new GiornoVM
+                {
+                    DayId = day.DayId,
+                    Date = day.TheDate,
+                    Appuntamenti = day.Appuntamento.Select(a => new AppuntamentoVM
+                    {
+                        AppuntamentoId = a.AppuntamentoId,
+                        DayId = a.DayId,
+                        FamigliaId = a.FamigliaId,
+                        Status = a.Status,
+                        NomeFamiglia = a.Famiglia.Nome
+                    }).ToList()
+                };
             }
         }
 

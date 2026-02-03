@@ -184,6 +184,7 @@
     <Compile Include="Models\ViewModels\DayVM.cs" />
     <Compile Include="Models\ViewModels\FamigliaListItemVM.cs" />
     <Compile Include="Models\ViewModels\FissaAppuntamentoVM.cs" />
+    <Compile Include="Models\ViewModels\GiornoVM.cs" />
     <Compile Include="Models\ViewModels\RiepilogoFamigliaVM.cs" />
     <Compile Include="Models\ViewModels\Step1FamigliaVM.cs" />
     <Compile Include="Models\ViewModels\Step2VeicoliVM.cs" />

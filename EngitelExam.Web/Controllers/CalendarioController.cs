@@ -39,8 +39,10 @@ namespace EngitelExam.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Giorno(int dayId)
         {
-            var appuntamenti = await _calendarioService.GetAppuntamentiPerGiornoAsync(dayId);
-            return View(appuntamenti); // Model: IEnumerable<AppuntamentoVM>
+            //var appuntamenti = await _calendarioService.GetAppuntamentiPerGiornoAsync(dayId);
+            var model = await _calendarioService.GetGiornoAsync(dayId);
+            if (model == null) return HttpNotFound();
+            return View(model); // Model: IEnumerable<AppuntamentoVM>
         }
 
         //[HttpPost]

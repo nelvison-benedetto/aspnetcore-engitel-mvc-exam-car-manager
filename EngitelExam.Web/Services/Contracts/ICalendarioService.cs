@@ -11,8 +11,12 @@ namespace EngitelExam.Web.Services.Contracts
     public interface ICalendarioService
     {
         Task<CalendarioVM> GetCalendarioMeseAsync(int year, int month);
-        Task<IEnumerable<AppuntamentoVM>> GetAppuntamentiPerGiornoAsync(int dayId);
+
         //Task<AppuntamentoVM> AddAppuntamentoAsync(int dayId, int famigliaId);
+
+        //Task<IEnumerable<AppuntamentoVM>> GetAppuntamentiPerGiornoAsync(int dayId);
+        Task<GiornoVM> GetGiornoAsync(int dayId);
+
         Task CancelAppuntamentoAsync(int appuntamentoId);
         Task<AppuntamentoVM> FissaAppuntamentoAsync(FissaAppuntamentoVM model);
     }
