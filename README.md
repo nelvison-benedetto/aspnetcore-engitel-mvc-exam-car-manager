@@ -10,3 +10,8 @@ Engitel S.p.A. – Technical Assessment
 ![Reference6](./docs/readmefiles/carmanager6.png)
 ![Reference7](./docs/readmefiles/carmanager7.png)
 ![Reference8](./docs/readmefiles/carmanager8.png)
+![Reference9](./docs/readmefiles/carmanager9.png)
+![Reference10](./docs/readmefiles/carmanager10.png)
+![Reference11](./docs/readmefiles/carmanager11.png)
+![Reference12](./docs/readmefiles/carmanager12.png)
+![Reference13](./docs/readmefiles/carmanager13.png)
