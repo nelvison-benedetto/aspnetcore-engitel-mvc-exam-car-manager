@@ -67,7 +67,7 @@ namespace EngitelExam.Web.Services.Implementations
                     {
                         calendarioDays.Add(new DayVM
                         {
-                            DayId = 0,   //0 indica che non esiste ancora in db
+                            DayId = 0,   //0 indica che non esiste ancora in db!
                             Date = date,
                             AppuntamentiCount = 0,
                             IsAvailable = true
